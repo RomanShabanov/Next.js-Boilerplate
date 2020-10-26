@@ -1,0 +1,41 @@
+version: "3.3"
+
+services:
+  mongo:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    restart: always
+    entrypoint: ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0"]
+
+  slave1:
+    image: mongo:latest
+    expose:
+      - 27017
+    restart: always
+    entrypoint: ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0"]
+
+  slave2:
+    image: mongo:latest
+    expose:
+      - 27017
+    restart: always
+    entrypoint: ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0"]
+
+  mongosetup:
+    image: mongo:latest
+    depends_on:
+      - mongo
+      - slave1
+      - slave2
+    volumes:
+      - ./mongo_setup.sh:/mongo_setup.sh
+    restart: "no"
+    entrypoint: ["bash", "/mongo_setup.sh"]
+
+  redis:
+    ports:
+      - 6379:6379
+    image: redis:latest
+    volumes:
+      - "./.local_data/redis:/data"
