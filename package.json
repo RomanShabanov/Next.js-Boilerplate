@@ -13,10 +13,9 @@
     "cross-env": "^7.0.2",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "next": "latest",
+    "next": "^10.0.2",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "path-match": "^1.2.4",
     "pm2": "^4.5.0",
     "react": "17",
     "react-dom": "17"

@@ -7,6 +7,8 @@ services:
       - 27017:27017
     restart: always
     entrypoint: ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0"]
+    volumes:
+      - "./.local_data/mongo/master:/data/db"
 
   slave1:
     image: mongo:latest
@@ -14,6 +16,8 @@ services:
       - 27017
     restart: always
     entrypoint: ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0"]
+    volumes:
+      - "./.local_data/mongo/slave1:/data/db"
 
   slave2:
     image: mongo:latest
@@ -21,6 +25,8 @@ services:
       - 27017
     restart: always
     entrypoint: ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0"]
+    volumes:
+      - "./.local_data/mongo/slave2:/data/db"
 
   mongosetup:
     image: mongo:latest
